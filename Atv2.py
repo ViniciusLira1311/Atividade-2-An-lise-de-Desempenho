@@ -143,3 +143,15 @@ def processar_arquivo(nome_arquivo):
         print(f"Erro ao processar arquivo: {e}")
     
     return lista
+
+if __name__ == "__main__":
+ 
+    # Escreve o conteúdo no arquivo
+    with open('teste.txt', 'w') as f:
+        f.write(conteudo_exemplo)
+    
+    # Processar o arquivo
+    lista_resultante = processar_arquivo('teste.txt')
+    
+    print("Lista final:")
+    lista_resultante.imprimir()
