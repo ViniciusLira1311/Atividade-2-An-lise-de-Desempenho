@@ -53,3 +53,38 @@ class ListaEncadeada:
             atual.proximo = novo_no  # Último elemento aponta para o novo nó
         
         self.tamanho += 1
+
+    def remover_valor(self, valor):
+        if self.esta_vazia():  # Se a lista estiver vazia
+            return False
+        
+        # Caso especial: remover a cabeça
+        if self.cabeca.valor == valor:
+            self.cabeca = self.cabeca.proximo
+            self.tamanho -= 1
+            return True
+        
+        atual = self.cabeca
+        # Procura o valor a ser removido
+        while atual.proximo is not None:
+            if atual.proximo.valor == valor:
+                atual.proximo = atual.proximo.proximo  # Remove o nó
+                self.tamanho -= 1
+                return True
+            atual = atual.proximo
+        
+        return False  # Valor não encontrado
+    
+    def imprimir(self):
+        if self.esta_vazia():
+            print("Lista vazia")
+            return
+        
+        elementos = []
+        atual = self.cabeca
+        # Coleta todos os valores da lista
+        while atual is not None:
+            elementos.append(str(atual.valor))
+            atual = atual.proximo
+        
+        print(" ".join(elementos))  # Imprime os valores separados por espaço
