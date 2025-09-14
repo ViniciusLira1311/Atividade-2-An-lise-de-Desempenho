@@ -16,3 +16,26 @@ class ListaEncadeada:
         novo_no.proximo = self.cabeca  # Novo nó aponta para a antiga cabeça
         self.cabeca = novo_no  # Cabeça agora aponta para o novo nó
         self.tamanho += 1      # Incrementa o tamanho da lista
+
+    def adicionar_posicao(self, valor, posicao):
+        if posicao <= 0:  # Se posição for menor ou igual a 0, adiciona no início
+            self.adicionar_inicio(valor)
+            return
+        
+        if posicao >= self.tamanho:  # Se posição for maior que o tamanho, adiciona no final
+            self.adicionar_fim(valor)
+            return
+        
+        novo_no = No(valor)
+        atual = self.cabeca
+        contador = 0
+        
+        # Navega até a posição anterior à desejada
+        while contador < posicao - 1 and atual.proximo is not None:
+            atual = atual.proximo
+            contador += 1
+        
+        # Insere o novo nó na posição correta
+        novo_no.proximo = atual.proximo
+        atual.proximo = novo_no
+        self.tamanho += 1
