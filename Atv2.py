@@ -94,3 +94,52 @@ class ListaEncadeada:
         # Adiciona os valores na ordem inversa para manter a ordem correta
         for valor in reversed(valores):
             self.adicionar_inicio(valor)
+
+def processar_arquivo(nome_arquivo):
+    lista = ListaEncadeada()  # Cria uma nova lista vazia
+    
+    try:
+        with open(nome_arquivo, 'r') as arquivo:
+            linhas = arquivo.readlines()  # Lê todas as linhas do arquivo
+            
+            # Primeira linha: inicialização da lista
+            linha_inicial = linhas[0].strip()
+            if linha_inicial:
+                # Converte os valores para inteiro
+                valores_iniciais = list(map(int, linha_inicial.split()))
+                lista.inicializar_com_lista(valores_iniciais)
+            
+            # Segunda linha: quantidade de ações
+            if len(linhas) > 1:
+                qtd_acoes = int(linhas[1].strip())
+            else:
+                qtd_acoes = 0
+            
+            # Processar as ações
+            for i in range(2, 2 + qtd_acoes):
+                if i < len(linhas):
+                    linha = linhas[i].strip()
+                    if linha:
+                        partes = linha.split()  # Divide a linha em partes
+                        acao = partes[0].upper()  # Ação (A, R ou P)
+                        
+                        if acao == 'A':  # Adicionar
+                            if len(partes) >= 3:
+                                valor = int(partes[1])
+                                posicao = int(partes[2])
+                                lista.adicionar_posicao(valor, posicao)
+                        
+                        elif acao == 'R':  # Remover
+                            if len(partes) >= 2:
+                                valor = int(partes[1])
+                                lista.remover_valor(valor)
+                        
+                        elif acao == 'P':  # Imprimir
+                            lista.imprimir()
+    
+    except FileNotFoundError:
+        print(f"Erro: Arquivo '{nome_arquivo}' não encontrado.")
+    except Exception as e:
+        print(f"Erro ao processar arquivo: {e}")
+    
+    return lista
