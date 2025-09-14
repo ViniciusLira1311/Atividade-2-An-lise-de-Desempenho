@@ -39,3 +39,17 @@ class ListaEncadeada:
         novo_no.proximo = atual.proximo
         atual.proximo = novo_no
         self.tamanho += 1
+
+    def adicionar_fim(self, valor):
+        novo_no = No(valor)
+        
+        if self.esta_vazia():  # Se a lista estiver vazia
+            self.cabeca = novo_no
+        else:
+            atual = self.cabeca
+            # Navega até o último elemento
+            while atual.proximo is not None:
+                atual = atual.proximo
+            atual.proximo = novo_no  # Último elemento aponta para o novo nó
+        
+        self.tamanho += 1
