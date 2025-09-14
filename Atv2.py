@@ -88,3 +88,9 @@ class ListaEncadeada:
             atual = atual.proximo
         
         print(" ".join(elementos))  # Imprime os valores separados por espaço
+
+    def inicializar_com_lista(self, valores):
+        """Inicializa a lista com uma lista de valores"""
+        # Adiciona os valores na ordem inversa para manter a ordem correta
+        for valor in reversed(valores):
+            self.adicionar_inicio(valor)
