@@ -1,3 +1,4 @@
+import sys 
 class No:
     def __init__(self, valor):
         self.valor = valor
@@ -96,7 +97,7 @@ def processar_arquivo(nome_arquivo):
     try:
         with open(nome_arquivo, 'r') as arquivo:
             linhas = arquivo.readlines()
-            
+            cont_print = 0
             # Primeira linha: inicialização da lista
             linha_inicial = linhas[0].strip()
             if linha_inicial:
@@ -112,10 +113,10 @@ def processar_arquivo(nome_arquivo):
             # Processar as ações
             for i in range(2, 2 + qtd_acoes):
                 if i < len(linhas):
-                    linha = linhas[i].strip()
+                    linha = linhas[i].strip() #remove espaços em branco ou caracteres especificados do início e do fim de uma string.
                     if linha:
-                        partes = linha.split()
-                        acao = partes[0].upper()
+                        partes = linha.split() #divide uma string em uma lista de substrings usando um delimitador.
+                        acao = partes[0].upper() #converte todos os caracteres de uma string para maiúsculas. 
                         
                         if acao == 'A':  # Adicionar
                             if len(partes) >= 3:
@@ -129,6 +130,8 @@ def processar_arquivo(nome_arquivo):
                                 lista.remover_valor(valor)
                         
                         elif acao == 'P':  # Imprimir
+                            cont_print += 1
+                            print (f"Lista {cont_print}: ")
                             lista.imprimir()
     
     except FileNotFoundError:
@@ -141,8 +144,14 @@ def processar_arquivo(nome_arquivo):
 # Exemplo de uso
 if __name__ == "__main__":
     
+    if len(sys.argv) <= 1:
+        print
+        exit(-1)  
+    
+    nome_arquivo = sys.argv[1]
+    
     # Processar o arquivo
-    lista_resultante = processar_arquivo('teste.txt')
+    lista_resultante = processar_arquivo(nome_arquivo)
     
     print("Lista final:")
     lista_resultante.imprimir()
